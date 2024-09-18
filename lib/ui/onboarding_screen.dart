@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/ui/screens/widgets/createPage.dart';
 import 'package:plant_app/ui/signin_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -58,18 +59,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               //define first page
               createPage(
-                image: 'assets/images/plant-one.png',
+                image: 'assets/images/thegioididong.png',
                 title: Constants.titleOne,
                 description: Constants.descriptionOne,
               ),
               createPage(
-                image: 'assets/images/plant-two.png',
-                title: Constants.descriptionTwo,
+                image: 'assets/images/cellphoneS.gif',
+                title: Constants.titleTwo,
                 description: Constants.descriptionTwo,
               ),
               createPage(
-                image: 'assets/images/plant-three.png',
-                title: Constants.descriptionThree,
+                image: 'assets/images/fpt.png',
+                title: Constants.titleThree,
                 description: Constants.descriptionThree,
               ),
             ],
@@ -128,6 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
 //create indicator widget
+// ... -> switch to another page
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -154,62 +156,5 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
     return indicators;
-  }
-}
-
-class createPage extends StatelessWidget {
-  final String image;
-  final String title;
-  final String description;
-
-  const createPage({
-    required this.image,
-    required this.title,
-    required this.description,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 350,
-            child: Image.asset(
-              image,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Constants.primaryColor),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
-    );
   }
 }

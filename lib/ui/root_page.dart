@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/plants.dart';
@@ -24,16 +25,14 @@ class _RootPage extends State<RootPage> {
 
   int _bottomNavIndex = 0;
 
+  List<Widget> screens = [];
+
   //list screen (=> has been converted to page widget options)
   List<Widget> _widgetOptions() {
-    return [
+    return screens = [
       const HomeScreen(),
-      FavoriteScreen(
-        favoritedPLants: favorites,
-      ),
-      CartScreen(
-        addedToCartPlants: myCart,
-      ),
+      FavoriteScreen(favoritedPLants_onParmas: favorites),
+      CartScreen(addedToCartPlants: myCart),
       const ProfileScreen(),
     ];
   }
@@ -49,13 +48,29 @@ class _RootPage extends State<RootPage> {
   //list page title
   List<String> title = [
     'Home',
-    'Favorite',
-    'Cart',
-    'Profile',
+    'Yêu thích',
+    'Giỏ hàng',
+    'Cá Nhân',
   ];
 
   @override
+  // void initState() {
+  //   SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+  //     screens = [
+  //     const HomeScreen(),
+  //     FavoriteScreen(favoritedPLants_onParmas: favorites),
+  //     CartScreen(addedToCartPlants: myCart),
+  //     const ProfileScreen(),
+  //   ];
+  //   setState(() {});
+  //   });
+    
+  //   super.initState();
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    print("Root page build");
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -119,12 +134,12 @@ class _RootPage extends State<RootPage> {
             _bottomNavIndex = index;
 
             //fetch the favorites and cart items
-            final List<Plant> favoritedPLants = Plant.getFavoritedPlants();
+            final List<Plant> favoritedPLants_getFavList = Plant.getFavoritedPlants();
             final List<Plant> addedToCartPlants = Plant.addedToCartPlants();
 
             //update the cart and the favorites
-            favorites = favoritedPLants;
-            myCart = addedToCartPlants.toSet().toList(); //the .toSet() will remove any duplicates in the list
+            favorites = favoritedPLants_getFavList;
+            myCart = addedToCartPlants.toSet().toList();
           });
         },
       ),

@@ -3,8 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/plants.dart';
+import 'package:plant_app/providers/favorites_provider.dart';
+import 'package:plant_app/providers/sample_provider.dart';
 import 'package:plant_app/ui/screens/detail.dart';
 import 'package:plant_app/ui/screens/widgets/plant_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     Size size = MediaQuery.of(context).size;
+    final TextEditingController onChangeText = new TextEditingController();
 
     //get plant list from model
     List<Plant> _plantList = Plant.plantList;
@@ -26,8 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
     List<String> _plantTypes = [
       'Recommended',
       'Indoor',
-      'Outdoor'
-          'Garden',
+      'Outdoor',
+      'Garden',
       'Supplement',
     ];
 
@@ -60,14 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           Icons.search,
                           color: Colors.black54.withOpacity(.6),
                         ),
-                        const Expanded(
-                            child: TextField(
-                          showCursor: false,
-                          decoration: InputDecoration(
-                              hintText: "Tìm kiếm thực vật",
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none),
-                        )),
+                        Expanded(
+                          child: TextField(
+                            showCursor: false,
+                            decoration: InputDecoration(
+                                hintText: "Tìm kiếm nhanh...",
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.withOpacity(.8)),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                          ),
+                        ),
                         Icon(
                           Icons.mic,
                           color: Colors.black54.withOpacity(.6),
@@ -80,6 +87,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: TextField(
+                controller: onChangeText,
+                decoration: const InputDecoration(
+                  label: Text('New User Name'),
+                ),
+              ),
+            ),
+            Center(
+              child: FilledButton(
+                onPressed: () {
+                  context.read<ChangeText>().changeText(
+                        newText: onChangeText.text.trim(),
+                      );
+                },
+                child: Text('submit data name'),
               ),
             ),
             Container(
@@ -122,6 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: _plantList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
+                  final item = _plantList[index];
+                  FavoriteProvider fav = new FavoriteProvider();
                   //add ontap func to plant cards
                   return GestureDetector(
                     onTap: () {
@@ -129,14 +157,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           PageTransition(
                               child: DetailPage(
-                                plantId: _plantList[index].plantId,
+                                plantId: item.plantId,
                               ),
                               type: PageTransitionType.bottomToTop));
                     },
                     child: Container(
                       width: 200,
                       margin: const EdgeInsets.symmetric(horizontal: 10),
-                      // ignore: sort_child_properties_last
+                      decoration: BoxDecoration(
+                        color: Constants.primaryColor.withOpacity(.8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Stack(
                         children: [
                           Positioned(
@@ -145,17 +176,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               height: 50,
                               width: 50,
+                              //icon button add to favorite
                               // ignore: sort_child_properties_last
                               child: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    bool isFavorated = toggleIsFavorited(
-                                        _plantList[index].isFavorated);
-                                    _plantList[index].isFavorated = isFavorated;
+                                    // FavoriteProvider fav = new FavoriteProvider();
+                                    fav.checkLog(item.isFavorated);
+
+                                    // bool isFavorated = toggleIsFavorited(item.isFavorated);
+                                    // _plantList[index].isFavorated = isFavorated;
+                                    context.read<FavoriteProvider>().pvdToggleFavor(index);
                                   });
                                 },
                                 icon: Icon(
-                                  _plantList[index].isFavorated == true
+                                  item.isFavorated == true
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   color: Constants.primaryColor,
@@ -173,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             right: 50,
                             top: 50,
                             bottom: 50,
-                            child: Image.asset(_plantList[index].imageURL),
+                            child: Image.asset(item.imageURL),
                           ),
                           Positioned(
                             left: 20,
@@ -182,14 +217,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _plantList[index].category,
+                                  item.category,
                                   style: const TextStyle(
                                     color: Colors.white70,
                                     fontSize: 16,
                                   ),
                                 ),
                                 Text(
-                                  _plantList[index].plantName,
+                                  item.plantName,
                                   style: const TextStyle(
                                       color: Colors.white70,
                                       fontSize: 15,
@@ -209,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
-                                r'$' + _plantList[index].price.toString(),
+                                r'$' + item.price.toString(),
                                 style: TextStyle(
                                   color: Constants.primaryColor,
                                   fontSize: 16,
@@ -218,10 +253,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: Constants.primaryColor.withOpacity(.8),
-                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                   );

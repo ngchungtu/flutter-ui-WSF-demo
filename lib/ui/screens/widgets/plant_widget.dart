@@ -14,10 +14,15 @@ class PlantWidget extends StatelessWidget {
     required this.plantList,
   });
 
+  // void checkLog() {
+  //   print('index on plant widget - $plantList');
+  // }
+
   @override
   Widget build(BuildContext context) {
     //only 2 params in this widget is index and list item
     Size size = MediaQuery.of(context).size;
+    final item = plantList[index];
 
     return GestureDetector(
       onTap: () {
@@ -25,7 +30,7 @@ class PlantWidget extends StatelessWidget {
             context,
             PageTransition(
                 child: DetailPage(
-                  plantId: plantList[index].plantId,
+                  plantId: item.plantId,
                 ),
                 type: PageTransitionType.bottomToTop));
       },
@@ -59,7 +64,7 @@ class PlantWidget extends StatelessWidget {
                   right: 0,
                   child: SizedBox(
                     height: 80.0,
-                    child: Image.asset(plantList[index].imageURL),
+                    child: Image.asset(item.imageURL),
                   ),
                 ),
                 Positioned(
@@ -68,9 +73,9 @@ class PlantWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(plantList[index].category),
+                      Text(item.category),
                       Text(
-                        plantList[index].plantName,
+                        item.plantName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -85,7 +90,7 @@ class PlantWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(right: 10),
               child: Text(
-                r'$' + plantList[index].price.toString(),
+                r'$' + item.price.toString(),
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

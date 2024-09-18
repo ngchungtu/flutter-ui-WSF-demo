@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/providers/favorites_provider.dart';
+import 'package:plant_app/providers/sample_provider.dart';
 import 'package:plant_app/ui/onboarding_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +13,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Plant App',
-      debugShowCheckedModeBanner: false,
-      home: OnboardingScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => ChangeText()),
+        ChangeNotifierProvider(create: (ctx)=> FavoriteProvider()),
+      ],
+      child: const MaterialApp(
+        title: 'Plant App',
+        debugShowCheckedModeBanner: false,
+        home: OnboardingScreen(),
+      ),
     );
   }
 }

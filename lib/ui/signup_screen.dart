@@ -106,33 +106,33 @@ class _SignUpState extends State<SignUp> {
                 height: 20,
               ),
               //button singin with google button
-              Container(
-                width: size.width,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Constants.primaryColor),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      child: Image.asset('assets/images/google.png'),
-                    ),
-                    Text(
-                      'Sign Up with Google',
-                      style: TextStyle(
-                        color: Constants.blackColor,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              // Container(
+              //   width: size.width,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Constants.primaryColor),
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //     children: [
+              //       SizedBox(
+              //         height: 30,
+              //         child: Image.asset('assets/images/google.png'),
+              //       ),
+              //       Text(
+              //         'Sign Up with Google',
+              //         style: TextStyle(
+              //           color: Constants.blackColor,
+              //           fontSize: 18.0,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(

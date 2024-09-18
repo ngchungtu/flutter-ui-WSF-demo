@@ -25,15 +25,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Container(
                 width: 150,
+                // ignore: sort_child_properties_last
                 child: const CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.transparent,
-                  backgroundImage: ExactAssetImage('assets/images/profile.jpg'),
+                  backgroundImage: ExactAssetImage('assets/images/profile_2.jpg'),
                 ),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Constants.primaryColor.withOpacity(.5),
+                      color: Constants.primaryColor.withOpacity(.8),
                       width: 5.0,
                     )),
               ),
