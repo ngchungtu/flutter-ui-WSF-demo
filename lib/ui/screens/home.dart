@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final item = _plantList[index];
-                  FavoriteProvider fav = new FavoriteProvider();
+                  FavoriteProvider fav = FavoriteProvider();
                   //add ontap func to plant cards
                   return GestureDetector(
                     onTap: () {
@@ -181,12 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    // FavoriteProvider fav = new FavoriteProvider();
-                                    fav.checkLog(item.isFavorated);
-
-                                    // bool isFavorated = toggleIsFavorited(item.isFavorated);
-                                    // _plantList[index].isFavorated = isFavorated;
-                                    context.read<FavoriteProvider>().pvdToggleFavor(index);
+                                    bool isFav = fav.toggleFavorated(item.isFavorated);
+                                    item.isFavorated = isFav;
                                   });
                                 },
                                 icon: Icon(

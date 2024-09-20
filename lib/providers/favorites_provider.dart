@@ -7,18 +7,16 @@ class FavoriteProvider extends ChangeNotifier {
 
   final List<Plant> _plantList = Plant.plantList;
 
-  bool pvdToggleFavor(int index) {
-    final item = _plantList[index];
-    final itemId = _plantList[index].plantId;
-    print('index: $index');
-    notifyListeners();
-    return item.plantId == index ? isFavorated == true : isFavorated == false;
-  }
+  // bool _pvdToggleFavor(int index, bool isFavoratedOnParams) {
+  //   final item = _plantList[index];
+  //   final itemId = _plantList[index].plantId;
+  //   print('index(item id): $index');
+  //   print('isFavoratedOnParams(item fav stt): $isFavoratedOnParams');
+  //   notifyListeners();
+  //   return item.plantId == index ? isFavoratedOnParams == true : isFavoratedOnParams == false;
+  // }
 
-  bool checkLog(bool defaultFavorited) {
-    // print('defaultFavorited: $defaultFavorited');
-    isFavorated = !defaultFavorited;
-    print('isFavorated: $isFavorated');
-    return !defaultFavorited;
+  bool toggleFavorated(bool isFavorated){
+    return !isFavorated;
   }
 }
