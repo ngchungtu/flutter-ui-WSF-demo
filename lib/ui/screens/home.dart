@@ -21,7 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     Size size = MediaQuery.of(context).size;
-    final TextEditingController onChangeText = new TextEditingController();
+    final TextEditingController onChangeText = TextEditingController();
+    final favoriteProvider = context.read<FavoriteProvider>();
+    final watchFavoriteProvider = context.watch<FavoriteProvider>();
+    // final checkIsFavorited = context.watch<FavoriteProvider>().isFavorated;
 
     //get plant list from model
     List<Plant> _plantList = Plant.plantList;
@@ -37,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     //toggle favorite button
     bool toggleIsFavorited(bool isFavorited) {
+      print('isFavorited: $isFavorited');
       return !isFavorited;
     }
 
@@ -105,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         newText: onChangeText.text.trim(),
                       );
                 },
-                child: Text('submit data name'),
+                child: const Text('submit data name'),
               ),
             ),
             Container(
@@ -181,12 +185,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    bool isFav = fav.toggleFavorated(item.isFavorated);
+                                    // favoriteProvider.handleRecieve(item.isFavorated,item.plantName,item.plantId);
+                                    
+                                    bool isFav = toggleIsFavorited(item.isFavorated);
                                     item.isFavorated = isFav;
+                                    favoriteProvider.handleRecieve(item.isFavorated,item.plantName,item.plantId);
                                   });
+                                  print('log: ${item.isFavorated}');
                                 },
                                 icon: Icon(
-                                  item.isFavorated == true
+                                  item.isFavorated
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   color: Constants.primaryColor,

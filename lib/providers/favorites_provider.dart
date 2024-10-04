@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/models/plants.dart';
 
 class FavoriteProvider extends ChangeNotifier {
-  bool isFavorated;
-  FavoriteProvider({this.isFavorated = false});
 
-  final List<Plant> _plantList = Plant.plantList;
+  bool isFavorated = false;
 
-  // bool _pvdToggleFavor(int index, bool isFavoratedOnParams) {
-  //   final item = _plantList[index];
-  //   final itemId = _plantList[index].plantId;
-  //   print('index(item id): $index');
-  //   print('isFavoratedOnParams(item fav stt): $isFavoratedOnParams');
-  //   notifyListeners();
-  //   return item.plantId == index ? isFavoratedOnParams == true : isFavoratedOnParams == false;
-  // }
+  void toggleFavorated(index) {
+    print('index: $index');
+    return index;
+  }
 
-  bool toggleFavorated(bool isFavorated){
-    return !isFavorated;
+  bool handleRecieve(bool fav, String name, int id){
+    print('plaat name is ${name}, with id ${id}, fav: ${fav}');
+    if(fav == false && name != '' && id > -1 ) {
+      fav = !isFavorated;
+      notifyListeners();
+    }
+    isFavorated = fav;
+    print('isFavorated: $isFavorated');
+    return isFavorated;
   }
 }

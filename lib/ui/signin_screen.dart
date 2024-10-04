@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/providers/sample_provider.dart';
 import 'package:plant_app/ui/forgotpassword_screen.dart';
 import 'package:plant_app/ui/root_page.dart';
 import 'package:plant_app/ui/screens/widgets/custom_textfield.dart';
 import 'package:plant_app/ui/signup_screen.dart';
+import 'package:provider/provider.dart';
 
 class Signin extends StatelessWidget {
   const Signin({super.key});
@@ -14,6 +16,7 @@ class Signin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final TextEditingController onChangeText = new TextEditingController();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -75,6 +78,36 @@ class Signin extends StatelessWidget {
                   ),
                 ),
               ),
+
+              //input text onchange
+              // Container(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              //   child: Column(
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(10),
+              //         child: TextField(
+              //           controller: onChangeText,
+              //           decoration: const InputDecoration(
+              //             label: Text('Email'),
+              //           ),
+              //         ),
+              //       ),
+              //       Center(
+              //         child: FilledButton(
+              //           onPressed: () {
+              //             context.read<ChangeText>().changeText(
+              //                   newText: onChangeText.text.trim(),
+              //                 );
+              //           },
+              //           child: const Text('Login'),
+              //         ),
+              //       ),
+              //       Text(context.watch<ChangeText>().defaultText.toString()),
+              //     ],
+              //   ),
+              // ),
               const SizedBox(
                 height: 10,
               ),
