@@ -22,9 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
     int selectedIndex = 0;
     Size size = MediaQuery.of(context).size;
     final TextEditingController onChangeText = TextEditingController();
-    final favoriteProvider = context.read<FavoriteProvider>();
-    final watchFavoriteProvider = context.watch<FavoriteProvider>();
-    // final checkIsFavorited = context.watch<FavoriteProvider>().isFavorated;
 
     //get plant list from model
     List<Plant> _plantList = Plant.plantList;
@@ -39,256 +36,293 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     //toggle favorite button
-    bool toggleIsFavorited(bool isFavorited) {
-      print('isFavorited: $isFavorited');
-      return !isFavorited;
-    }
+    // bool toggleIsFavorited(bool isFavorited) {
+    //   print('isFavorited: $isFavorited');
+    //   return !isFavorited;
+    // }
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                    ),
-                    width: size.width * .9,
-                    // ignore: sort_child_properties_last
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: Colors.black54.withOpacity(.6),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            showCursor: false,
-                            decoration: InputDecoration(
-                                hintText: "Tìm kiếm nhanh...",
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.withOpacity(.8)),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none),
-                          ),
-                        ),
-                        Icon(
-                          Icons.mic,
-                          color: Colors.black54.withOpacity(.6),
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Constants.primaryColor.withOpacity(.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: TextField(
-                controller: onChangeText,
-                decoration: const InputDecoration(
-                  label: Text('New User Name'),
-                ),
-              ),
-            ),
-            Center(
-              child: FilledButton(
-                onPressed: () {
-                  context.read<ChangeText>().changeText(
-                        newText: onChangeText.text.trim(),
-                      );
-                },
-                child: const Text('submit data name'),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              height: 50.0,
-              width: size.width,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _plantTypes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      child: Text(
-                        _plantTypes[index],
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: selectedIndex == index
-                              ? FontWeight.bold
-                              : FontWeight.w300,
-                          color: selectedIndex == index
-                              ? Constants.primaryColor
-                              : Constants.blackColor,
-                        ),
+    return ChangeNotifierProvider(
+      create: (context) => MyModel(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
                       ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            //list category items
-            SizedBox(
-              height: size.height * .3,
-              child: ListView.builder(
-                itemCount: _plantList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = _plantList[index];
-                  FavoriteProvider fav = FavoriteProvider();
-                  //add ontap func to plant cards
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: DetailPage(
-                                plantId: item.plantId,
-                              ),
-                              type: PageTransitionType.bottomToTop));
-                    },
-                    child: Container(
-                      width: 200,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Constants.primaryColor.withOpacity(.8),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Stack(
+                      width: size.width * .9,
+                      // ignore: sort_child_properties_last
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Positioned(
-                            top: 10,
-                            right: 20,
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              //icon button add to favorite
-                              // ignore: sort_child_properties_last
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    // favoriteProvider.handleRecieve(item.isFavorated,item.plantName,item.plantId);
-                                    
-                                    bool isFav = toggleIsFavorited(item.isFavorated);
-                                    item.isFavorated = isFav;
-                                    favoriteProvider.handleRecieve(item.isFavorated,item.plantName,item.plantId);
-                                  });
-                                  print('log: ${item.isFavorated}');
-                                },
-                                icon: Icon(
-                                  item.isFavorated
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Constants.primaryColor,
-                                ),
-                                iconSize: 30,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
+                          Icon(
+                            Icons.search,
+                            color: Colors.black54.withOpacity(.6),
+                          ),
+                          Expanded(
+                            child: TextField(
+                              showCursor: false,
+                              decoration: InputDecoration(
+                                  hintText: "Tìm kiếm nhanh...",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(.8)),
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
                             ),
                           ),
-                          Positioned(
-                            left: 50,
-                            right: 50,
-                            top: 50,
-                            bottom: 50,
-                            child: Image.asset(item.imageURL),
-                          ),
-                          Positioned(
-                            left: 20,
-                            bottom: 15,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.category,
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  item.plantName,
-                                  style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 15,
-                            right: 20,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                r'$' + item.price.toString(),
-                                style: TextStyle(
-                                  color: Constants.primaryColor,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
+                          Icon(
+                            Icons.mic,
+                            color: Colors.black54.withOpacity(.6),
                           ),
                         ],
                       ),
+                      decoration: BoxDecoration(
+                        color: Constants.primaryColor.withOpacity(.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                  );
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: TextField(
+                  controller: onChangeText,
+                  decoration: const InputDecoration(
+                    label: Text('New User Name'),
+                  ),
+                ),
+              ),
+              Center(
+                child: FilledButton(
+                  onPressed: () {
+                    context.read<ChangeText>().changeText(
+                          newText: onChangeText.text.trim(),
+                        );
+                  },
+                  child: const Text('submit data name'),
+                ),
+              ),
+              Container(
+                child: Consumer<MyModel>(
+                  builder: (context, mymodel, child) {
+                    return Center(
+                      child: FilledButton(
+                        onPressed: () {
+                          mymodel.setName('Hung');
+                        },
+                        child: const Text('change name'),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Consumer<MyModel>(
+                builder: (context, mymodel, child){
+                  return Text(mymodel.name);
                 },
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
-              child: const Text(
-                'New plants',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                height: 50.0,
+                width: size.width,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _plantTypes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
+                        child: Text(
+                          _plantTypes[index],
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: selectedIndex == index
+                                ? FontWeight.bold
+                                : FontWeight.w300,
+                            color: selectedIndex == index
+                                ? Constants.primaryColor
+                                : Constants.blackColor,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            //new plants list
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              height: size.height * .5,
-              child: ListView.builder(
-                itemCount: _plantList.length,
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (BuildContext ctx, int index) {
-                  return PlantWidget(
-                    index: index,
-                    plantList: _plantList,
-                  );
-                },
+              //list category items
+              SizedBox(
+                height: size.height * .3,
+                child: ListView.builder(
+                  itemCount: _plantList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = _plantList[index];
+                    //add ontap func to plant cards
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: DetailPage(
+                                  plantId: item.plantId,
+                                ),
+                                type: PageTransitionType.bottomToTop));
+                      },
+                      child: Container(
+                        width: 200,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Constants.primaryColor.withOpacity(.8),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 10,
+                              right: 20,
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                //icon button add to favorite
+                                // ignore: sort_child_properties_last
+                                child: Consumer<MyModel>(
+                                  builder: (context, favorited, child) {
+                                    return IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          favorited.toggleHanldeChange();
+                                          item.isFavorated = favorited.isFavChange;
+                                        });
+                                        print('log: ${item.isFavorated}');
+                                      },
+                                      icon: Icon(
+                                        item.isFavorated == true
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: Constants.primaryColor,
+                                      ),
+                                      iconSize: 30,
+                                    );
+                                  },
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 50,
+                              right: 50,
+                              top: 50,
+                              bottom: 50,
+                              child: Image.asset(item.imageURL),
+                            ),
+                            Positioned(
+                              left: 20,
+                              bottom: 15,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.category,
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    item.plantName,
+                                    style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 15,
+                              right: 20,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  r'$' + item.price.toString(),
+                                  style: TextStyle(
+                                    color: Constants.primaryColor,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.only(left: 16, bottom: 20, top: 20),
+                child: const Text(
+                  'New plants',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+              ),
+              //new plants list
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                height: size.height * .5,
+                child: ListView.builder(
+                  itemCount: _plantList.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext ctx, int index) {
+                    return PlantWidget(
+                      index: index,
+                      plantList: _plantList,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class MyModel extends ChangeNotifier {
+  bool isFavChange = false;
+  String name = "Tu";
+
+  void toggleHanldeChange() {
+    isFavChange = !isFavChange;
+    notifyListeners();
+  }
+
+  void setName(String newName) {
+    name = newName;
+    notifyListeners();
   }
 }
