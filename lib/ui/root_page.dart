@@ -1,6 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/plants.dart';
@@ -9,6 +8,7 @@ import 'package:plant_app/ui/scan_page.dart';
 import 'package:plant_app/ui/screens/cart.dart';
 import 'package:plant_app/ui/screens/favorite.dart';
 import 'package:plant_app/ui/screens/home.dart';
+import 'package:plant_app/ui/screens/product_list.dart';
 import 'package:plant_app/ui/screens/profile.dart';
 
 class RootPage extends StatefulWidget {
@@ -19,6 +19,7 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPage extends State<RootPage> {
+  
   //declare empty array for Favorite and Cart
   List<Plant> favorites = [];
   List<Plant> myCart = [];
@@ -33,7 +34,8 @@ class _RootPage extends State<RootPage> {
       const HomeScreen(),
       FavoriteScreen(favoritedPLants_onParmas: favorites),
       CartScreen(addedToCartPlants: myCart),
-      const ProfileScreen(),
+      // const ProfileScreen(),
+      const ProductList(),
     ];
   }
 
@@ -42,7 +44,8 @@ class _RootPage extends State<RootPage> {
     Icons.home,
     Icons.favorite,
     Icons.shopping_cart,
-    Icons.person,
+    // Icons.person,
+    Icons.list,
   ];
 
   //list page title
@@ -50,7 +53,8 @@ class _RootPage extends State<RootPage> {
     'Home',
     'Yêu thích',
     'Giỏ hàng',
-    'Cá Nhân',
+    // 'Cá Nhân',
+    'Sản phẩm',
   ];
 
   @override
@@ -64,7 +68,7 @@ class _RootPage extends State<RootPage> {
   //   ];
   //   setState(() {});
   //   });
-    
+
   //   super.initState();
   // }
 
@@ -134,7 +138,8 @@ class _RootPage extends State<RootPage> {
             _bottomNavIndex = index;
 
             //fetch the favorites and cart items
-            final List<Plant> favoritedPLants_getFavList = Plant.getFavoritedPlants();
+            final List<Plant> favoritedPLants_getFavList =
+                Plant.getFavoritedPlants();
             final List<Plant> addedToCartPlants = Plant.addedToCartPlants();
 
             //update the cart and the favorites

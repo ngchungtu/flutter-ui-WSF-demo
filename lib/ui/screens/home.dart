@@ -1,9 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/plants.dart';
-import 'package:plant_app/providers/favorites_provider.dart';
 import 'package:plant_app/providers/sample_provider.dart';
 import 'package:plant_app/ui/screens/detail.dart';
 import 'package:plant_app/ui/screens/widgets/plant_widget.dart';
