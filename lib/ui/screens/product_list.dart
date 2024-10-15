@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/products.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/ui/screens/widgets/product_item.dart';
+import 'package:plant_app/ui/screens/widgets/product_widget.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -42,7 +43,8 @@ class _ProductListState extends State<ProductList> {
       itemCount: productList.length,
       itemBuilder: (context, index) {
         final product = productList[index];
-        return ProductItem(product: product);
+        // return ProductItem(product: product);
+        return ProductWidget(product: product);
       },
     );
   }
