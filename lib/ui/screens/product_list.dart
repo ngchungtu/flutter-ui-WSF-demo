@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/products.dart';
-import 'package:http/http.dart' as http;
-import 'package:plant_app/ui/screens/widgets/product_item.dart';
+import 'package:plant_app/models/users.dart';
+import 'package:plant_app/providers/product_provider.dart';
 import 'package:plant_app/ui/screens/widgets/product_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -19,33 +20,39 @@ class _ProductListState extends State<ProductList> {
   @override
   void initState() {
     super.initState();
-    fetchProducts();
-  }
-
-  Future<void> fetchProducts() async {
-    // you can replace your api link with this link
-    final response =
-        await http.get(Uri.parse('https://fakestoreapi.com/products'));
-    if (response.statusCode == 200) {
-      List<dynamic> jsonData = json.decode(response.body);
-      // print('data rendered: $jsonData');
-      setState(() {
-        productList = jsonData.map((data) => Product.fromJson(data)).toList();
-      });
-    } else {
-      // Handle error if needed
-    }
+    // context.read<ProductProvider>().getAll();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: productList.length,
-      itemBuilder: (context, index) {
-        final product = productList[index];
-        // return ProductItem(product: product);
-        return ProductWidget(product: product);
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Product List'),
+      ),
+      body: FutureBuilder<List<Product>>(
+        future: ProductProvider.fetchData(),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // print('snapshot: ${snapshot.connectionState}');
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final item = snapshot.data![index];
+                // return ListTile(
+                //   title: Text(item.title!),
+                //   subtitle: Text(item.body!),
+                // );
+                return ProductWidget(product: item);
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }

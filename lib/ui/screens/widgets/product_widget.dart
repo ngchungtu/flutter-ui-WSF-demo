@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/products.dart';
+import 'package:plant_app/providers/product_provider.dart';
 import 'package:plant_app/ui/screens/detail.dart';
+import 'package:provider/provider.dart';
 
 class ProductWidget extends StatelessWidget {
   final Product product;
@@ -16,15 +18,15 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //only 2 params in this widget is index and list item
     Size size = MediaQuery.of(context).size;
-    final item = product;
-
+    final item = context.watch<ProductProvider>().product;
+    print('product: $product');
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             PageTransition(
                 child: DetailPage(
-                  plantId: item.id,
+                  plantId: product.id,
                 ),
                 type: PageTransitionType.bottomToTop));
       },
@@ -58,7 +60,7 @@ class ProductWidget extends StatelessWidget {
                   right: 0,
                   child: SizedBox(
                     height: 60.0,
-                    child: Image.network(item.image),
+                    child: Image.network(product.image),
                   ),
                 ),
                 Positioned(
@@ -68,9 +70,9 @@ class ProductWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item.category),
+                      Text(product.category),
                       Text(
-                        item.title,
+                        product.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -86,7 +88,7 @@ class ProductWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(right: 10),
               child: Text(
-                r'$' + item.price.toString(),
+                r'$' + product.price.toString(),
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

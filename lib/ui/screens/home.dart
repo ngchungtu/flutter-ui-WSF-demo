@@ -35,12 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
       'Supplement',
     ];
 
-    //toggle favorite button
-    // bool toggleIsFavorited(bool isFavorited) {
-    //   print('isFavorited: $isFavorited');
-    //   return !isFavorited;
-    // }
-
     return ChangeNotifierProvider(
       create: (context) => MyModel(),
       child: Scaffold(
