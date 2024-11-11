@@ -86,44 +86,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: TextField(
-                  controller: onChangeText,
-                  decoration: const InputDecoration(
-                    label: Text('New User Name'),
-                  ),
-                ),
-              ),
-              Center(
-                child: FilledButton(
-                  onPressed: () {
-                    context.read<ChangeText>().changeText(
-                          newText: onChangeText.text.trim(),
-                        );
-                  },
-                  child: const Text('submit data name'),
-                ),
-              ),
-              Container(
-                child: Consumer<MyModel>(
-                  builder: (context, mymodel, child) {
-                    return Center(
-                      child: FilledButton(
-                        onPressed: () {
-                          mymodel.setName('Hung');
-                        },
-                        child: const Text('change name'),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Consumer<MyModel>(
-                builder: (context, mymodel, child){
-                  return Text(mymodel.name);
-                },
-              ),
+
+              // #region Example provider context
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 12),
+              //   child: TextField(
+              //     controller: onChangeText,
+              //     decoration: const InputDecoration(
+              //       label: Text('New User Name'),
+              //     ),
+              //   ),
+              // ),
+              // Center(
+              //   child: FilledButton(
+              //     onPressed: () {
+              //       context.read<ChangeText>().changeText(
+              //             newText: onChangeText.text.trim(),
+              //           );
+              //     },
+              //     child: const Text('submit data name'),
+              //   ),
+              // ),
+              // Container(
+              //   child: Consumer<MyModel>(
+              //     builder: (context, mymodel, child) {
+              //       return Center(
+              //         child: FilledButton(
+              //           onPressed: () {
+              //             mymodel.setName('Hung');
+              //           },
+              //           child: const Text('change name'),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
+              // Consumer<MyModel>(
+              //   builder: (context, mymodel, child){
+              //     return Text(mymodel.name);
+              //   },
+              // ),
+              // #endregion
+
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 height: 50.0,
@@ -199,7 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onPressed: () {
                                         setState(() {
                                           favorited.toggleHanldeChange();
-                                          item.isFavorated = favorited.isFavChange;
+                                          item.isFavorated =
+                                              favorited.isFavChange;
                                         });
                                         print('log: ${item.isFavorated}');
                                       },

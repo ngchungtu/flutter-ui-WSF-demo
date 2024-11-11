@@ -16,6 +16,7 @@ class ProductProvider extends ChangeNotifier {
         await http.get(Uri.parse('https://fakestoreapi.com/products'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as List<dynamic>;
+      // print('data_product: $data');
       return data.map((json) => Product.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load data');

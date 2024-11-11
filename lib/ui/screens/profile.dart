@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/providers/user_provider.dart';
 import 'package:plant_app/ui/screens/widgets/profile_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -10,13 +12,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final userProvider = UserProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    userProvider.getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.only(bottom: 0, top: 30, left: 10, right: 10),
           height: size.height,
           width: size.width,
           child: Column(
@@ -25,21 +35,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Container(
                 width: 150,
-                // ignore: sort_child_properties_last
-                child: const CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: ExactAssetImage('assets/images/profile_2.jpg'),
-                ),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: Constants.primaryColor.withOpacity(.8),
                       width: 5.0,
                     )),
-              ),
-              const SizedBox(
-                height: 10,
+                child: const CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage:
+                      ExactAssetImage('assets/images/profile_2.jpg'),
+                ),
               ),
               SizedBox(
                 width: size.width * .3,
@@ -53,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 24.0,
+                      height: 20.0,
                       child: Image.asset('assets/images/verified.png'),
                     ),
                   ],
@@ -67,15 +74,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 10.0,
               ),
               SizedBox(
                 height: size.height * .7,
                 width: size.width,
-                // ignore: prefer_const_constructors
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     ProfileWidget(
                       icon: Icons.person,
                       title: "Cá nhân",

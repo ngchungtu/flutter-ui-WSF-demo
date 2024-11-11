@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/providers/favorites_provider.dart';
 import 'package:plant_app/providers/product_provider.dart';
 import 'package:plant_app/providers/sample_provider.dart';
+import 'package:plant_app/providers/user_provider.dart';
 import 'package:plant_app/ui/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => ChangeText()),
         ChangeNotifierProvider(create: (ctx)=> FavoriteProvider()),
         ChangeNotifierProvider(create: (ctx)=> ProductProvider()),
+        ChangeNotifierProvider(create: (ctx)=> UserProvider()),
       ],
       child: const MaterialApp(
         title: 'Plant App',

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/products.dart';
 import 'package:plant_app/models/users.dart';
 import 'package:plant_app/providers/product_provider.dart';
+import 'package:plant_app/providers/user_provider.dart';
 import 'package:plant_app/ui/screens/widgets/product_widget.dart';
 import 'package:provider/provider.dart';
 

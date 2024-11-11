@@ -10,6 +10,7 @@ import 'package:plant_app/ui/screens/favorite.dart';
 import 'package:plant_app/ui/screens/home.dart';
 import 'package:plant_app/ui/screens/product_list.dart';
 import 'package:plant_app/ui/screens/profile.dart';
+import 'package:plant_app/ui/screens/profilever2.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -19,7 +20,6 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPage extends State<RootPage> {
-  
   //declare empty array for Favorite and Cart
   List<Plant> favorites = [];
   List<Plant> myCart = [];
@@ -34,7 +34,7 @@ class _RootPage extends State<RootPage> {
       const HomeScreen(),
       FavoriteScreen(favoritedPLants_onParmas: favorites),
       CartScreen(addedToCartPlants: myCart),
-      // const ProfileScreen(),
+      const ProfileScreen(),
       const ProductList(),
     ];
   }
@@ -95,9 +95,50 @@ class _RootPage extends State<RootPage> {
             ),
           ],
         ),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                // open side drawer
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         //set appbar background color as same as scaffold color background
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0.0,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                //to close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfileVer2()),
+                );
+              },
+              child: const Text('User Detail'),
+            ),
+          ],
+        ),
       ),
       //body hold Pages Widgets
       body: IndexedStack(

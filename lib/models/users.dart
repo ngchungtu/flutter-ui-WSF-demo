@@ -1,29 +1,55 @@
-class UserModel {
+import 'package:flutter/material.dart';
 
-  int? userId;
+class UserModel {
   int? id;
-  String? title;
-  String? body;
+  String? email;
+  String? first_name;
+  String? last_name;
 
   UserModel({
-      this.userId,
-      this.id,
-      this.title,
-      this.body,});
+    this.id,
+    this.first_name,
+    this.last_name,
+    this.email,
+  });
 
-  UserModel.fromJson(dynamic json) {
-    userId = json['userId'];
-    id = json['id'];
-    title = json['title'];
-    body = json['body'];
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'],
+      email: json['email'],
+      first_name: json['first_name'],
+      last_name: json['last_name'],
+    );
   }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['userId'] = userId;
     map['id'] = id;
-    map['title'] = title;
-    map['body'] = body;
+    map['email'] = email;
+    map['first_name'] = first_name;
+    map['last_name'] = last_name;
     return map;
   }
 }
+
+// #region model class Profilever2
+class ProfileCompletionCard {
+  final String title;
+  final String buttonText;
+  final IconData icon;
+  ProfileCompletionCard({
+    required this.title,
+    required this.buttonText,
+    required this.icon,
+  });
+}
+
+class CustomListTile {
+  final IconData icon;
+  final String title;
+  CustomListTile({
+    required this.icon,
+    required this.title,
+  });
+}
+// #endregion

@@ -9,7 +9,7 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -21,7 +21,7 @@ class ProfileWidget extends StatelessWidget {
                 size: 24.0,
               ),
               const SizedBox(
-                width: 16.0,
+                width: 10.0,
               ),
               Text(
                 title,
