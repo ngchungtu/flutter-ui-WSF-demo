@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/users.dart';
 
 class UserProvider extends ChangeNotifier {
-  List<UserModel> userLisst = [];
+  List<UserModel> userList = [];
   final dio = Dio();
 
-  void getUser() async {
+  static getUser() async {
     try {
-      var res = await dio.get('https://reqres.in/api/users/2');
+      // var res = await dio.get('https://reqres.in/api/users/2');
+      var res = await Dio().get('https://reqres.in/api/users/2');
       if(res.statusCode == 200) {
-       userLisst = res.data['data'] as List<UserModel>; 
        print('userLisst: $res');
       } else {
         print(res.statusCode);
