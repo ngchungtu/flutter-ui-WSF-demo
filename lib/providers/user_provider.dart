@@ -5,20 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/users.dart';
 
 class UserProvider extends ChangeNotifier {
-  List<UserModel> userList = [];
-  final dio = Dio();
-
-  static getUser() async {
-    try {
-      // var res = await dio.get('https://reqres.in/api/users/2');
-      var res = await Dio().get('https://reqres.in/api/users/2');
-      if(res.statusCode == 200) {
-       print('userLisst: $res');
-      } else {
-        print(res.statusCode);
+  static Future<List<Map<String, dynamic>>> getUser() async {
+    List<UserModel> userList = [];
+    var res = await Dio().get('https://reqres.in/api/users/2');
+    if (res.statusCode == 200) {
+      var arr = res.data as List<Map<String, dynamic>>;
+      if (arr is List<UserModel>) {
+        print('arr_2: $arr');
       }
-    } catch (e) {
-      print('Error getting');
+      // print('user_Log: $user');
+      // print('status: ${res.statusCode}');
+      print('res: $arr');
+      return arr;
+    } else {
+      print(res.statusCode);
+      throw Exception('Failed to load data');
     }
   }
 }

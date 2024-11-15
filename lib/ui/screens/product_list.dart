@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/products.dart';
-import 'package:plant_app/models/users.dart';
 import 'package:plant_app/providers/product_provider.dart';
-import 'package:plant_app/providers/user_provider.dart';
 import 'package:plant_app/ui/screens/widgets/product_widget.dart';
-import 'package:provider/provider.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -16,8 +11,6 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  List<Product> productList = [];
-
   @override
   void initState() {
     super.initState();

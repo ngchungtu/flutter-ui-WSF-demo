@@ -4,11 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/models/products.dart';
-import 'package:plant_app/models/users.dart';
 
 class ProductProvider extends ChangeNotifier {
   bool isLoading = false;
-  dynamic product;
   List<Product> productList = [];
 
   static Future<List<Product>> fetchData() async {

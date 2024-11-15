@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 
 class UserModel {
-  int? id;
-  String? email;
-  String? first_name;
-  String? last_name;
+  int id;
+  String email;
+  String firstName;
+  String lastName;
 
   UserModel({
-    this.id,
-    this.first_name,
-    this.last_name,
-    this.email,
+    required this.id,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
-      email: json['email'],
-      first_name: json['first_name'],
-      last_name: json['last_name'],
+      id: json["id"],
+      email: json["email"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['email'] = email;
-    map['first_name'] = first_name;
-    map['last_name'] = last_name;
-    return map;
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'email': email,
+        'first_name': firstName,
+        'last_name': lastName,
+      };
 }
 
 // #region model class Profilever2

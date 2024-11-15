@@ -34,7 +34,7 @@ class _RootPage extends State<RootPage> {
       const HomeScreen(),
       FavoriteScreen(favoritedPLants_onParmas: favorites),
       CartScreen(addedToCartPlants: myCart),
-      const ProfileScreen(),
+      // const ProfileScreen(),
       const ProductList(),
     ];
   }

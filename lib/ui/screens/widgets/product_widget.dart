@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/products.dart';
-import 'package:plant_app/providers/product_provider.dart';
 import 'package:plant_app/ui/screens/detail.dart';
-import 'package:provider/provider.dart';
 
 class ProductWidget extends StatelessWidget {
   final Product product;
@@ -18,7 +16,6 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //only 2 params in this widget is index and list item
     Size size = MediaQuery.of(context).size;
-    final item = context.watch<ProductProvider>().product;
     print('product: $product');
     return GestureDetector(
       onTap: () {

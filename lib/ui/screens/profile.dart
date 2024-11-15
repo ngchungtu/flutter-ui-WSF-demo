@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/providers/user_provider.dart';
 import 'package:plant_app/ui/screens/widgets/profile_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -12,12 +11,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final userProvider = UserProvider();
 
   @override
   void initState() {
     super.initState();
-    userProvider.getUser();
   }
 
   @override
