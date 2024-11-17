@@ -1,12 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class UserModel {
-  int id;
-  String email;
-  String firstName;
-  String lastName;
+  final int id;
+  final String email;
+  final String firstName;
+  final String lastName;
 
-  UserModel({
+  const UserModel({
     required this.id,
     required this.email,
     required this.firstName,
@@ -15,10 +17,10 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json["id"],
-      email: json["email"],
-      firstName: json["first_name"],
-      lastName: json["last_name"],
+      id: int.parse(json['id'] as String),
+      email: json["email"] as String,
+      firstName: json["first_name"] as String,
+      lastName: json["last_name"] as String,
     );
   }
 

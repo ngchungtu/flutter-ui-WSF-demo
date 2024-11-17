@@ -21,12 +21,12 @@ class _MyWidgetState extends State<ProfileVer2> {
 
   // void getUser() async {
   //   try {
-  //     var res =
-  //         await Dio().get('https://jsonplaceholder.typicode.com/users?id=1');
-  //     setState(() {
-  //       userList = res.data;
-  //     });
-  //     userList = res.data;
+  //     var res = await Dio()
+  //         .get('https://protocoderspoint.com/jsondata/superheros.json');
+  //     // setState(() {
+  //     //   userList = res.data;
+  //     // });
+  //     userList = res.data['superheros'] as List;
   //     print('res: $res');
   //     print('userLisst: $userList');
   //   } catch (e) {

@@ -15,6 +15,7 @@ class _ProductListState extends State<ProductList> {
   void initState() {
     super.initState();
     // context.read<ProductProvider>().getAll();
+    ProductProvider.fetchData();
   }
 
   @override
