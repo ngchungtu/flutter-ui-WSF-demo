@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/users.dart';
 
 class UserProvider extends ChangeNotifier {
-  static Future getUser() async {
-    List<UserModel> userList = [];
+  static Future<List<UserModel>> getUser() async {
+    // List<UserModel> userList = [];
     var res =
         await Dio().get('https://jsonplaceholder.typicode.com/users?id=1');
     print('getUser void');
     if (res.statusCode == 200) {
-      print('inside - 1');
+      print('res successfully: ${res.data}');
       List<dynamic> jsonData = res.data;
-      userList = jsonData.map((user) => UserModel.fromJson(user)).toList();
-      //   final arr = UserModel.fromJson(res.data);
+      var userList = jsonData.map((user) => UserModel.fromJson(user)).toList();
       print('userList: $userList');
       return userList;
     } else if (res.data is List<UserModel>) {

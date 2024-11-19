@@ -62,48 +62,47 @@ class _MyWidgetState extends State<ProfileVer2> {
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-          // FutureBuilder<List<UserModel>>(
-          //   future: UserProvider.getUser(),
-          //   builder: (BuildContext context,
-          //       AsyncSnapshot<List<UserModel>> snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return const Text('please waiting...');
-          //     } else if (snapshot.hasError) {
-          //       return Text('Error: ${snapshot.error}');
-          //     } else {
-          //       return ListView.builder(
-          //           itemCount: snapshot.data!.length,
-          //           itemBuilder: (BuildContext context, int index) {
-          //             final item = snapshot.data![index];
-          //             return Card(
-          //               child: ListTile(
-          //                 title: Text(item.name),
-          //                 subtitle: Text(item.email),
-          //               ),
-          //             );
-          //           });
-          //       // return const Column(
-          //       //   children: [
-          //       //     CircleAvatar(
-          //       //       radius: 50,
-          //       //       backgroundImage: NetworkImage(
-          //       //         "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
-          //       //       ),
-          //       //     ),
-          //       //     SizedBox(height: 10),
-          //       //     Text(
-          //       //       "Rachael Wagner",
-          //       //       style: TextStyle(
-          //       //         fontSize: 18,
-          //       //         fontWeight: FontWeight.bold,
-          //       //       ),
-          //       //     ),
-          //       //     // Text("Junior Product Designer")
-          //       //   ],
-          //       // );
-          //     }
-          //   },
-          // ),
+          FutureBuilder<List<UserModel>>(
+            future: UserProvider.getUser(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<UserModel>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('please waiting...');
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = snapshot.data![index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(item.email!.toString()),
+                        ),
+                      );
+                    });
+                // return const Column(
+                //   children: [
+                //     CircleAvatar(
+                //       radius: 50,
+                //       backgroundImage: NetworkImage(
+                //         "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80",
+                //       ),
+                //     ),
+                //     SizedBox(height: 10),
+                //     Text(
+                //       "Rachael Wagner",
+                //       style: TextStyle(
+                //         fontSize: 18,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //     // Text("Junior Product Designer")
+                //   ],
+                // );
+              }
+            },
+          ),
           const SizedBox(height: 25),
           const Row(
             children: [

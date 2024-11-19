@@ -1,12 +1,13 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
 class UserModel {
-  final int id;
-  final String email;
-  final String firstName;
-  final String lastName;
+  final int? id;
+  final String? email;
+  final String? firstName;
+  final String? lastName;
 
   const UserModel({
     required this.id,
@@ -16,12 +17,17 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: int.parse(json['id'] as String),
-      email: json["email"] as String,
-      firstName: json["first_name"] as String,
-      lastName: json["last_name"] as String,
-    );
+    // return UserModel(
+    //   id: int.parse(json['id'] as String),
+    //   email: json["email"] as String,
+    //   firstName: json["first_name"] as String,
+    //   lastName: json["last_name"] as String,
+    // );
+    final id = json['id'];
+    final email = json['email'];
+    final firstName = json['first_name'];
+    final lastName = json['last_name'];
+    return UserModel(id: id, email: email, firstName: firstName, lastName: lastName);
   }
 
   Map<String, dynamic> toJson() => {
