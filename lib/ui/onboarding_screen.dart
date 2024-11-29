@@ -1,5 +1,6 @@
   import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/ui/screens/profilever2.dart';
 import 'package:plant_app/ui/screens/widgets/createPage.dart';
 import 'package:plant_app/ui/signin_screen.dart';
 
@@ -31,7 +32,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const Signin(),
+                    // builder: (_) => const Signin(),
+                    builder: (_) => const ProfileVer2(),
                   ),
                 )
               }, //to login screen
